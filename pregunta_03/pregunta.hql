@@ -13,5 +13,13 @@ Escriba el resultado a la carpeta `output` de directorio de trabajo.
 
         >>> Escriba su respuesta a partir de este punto <<<
 */
+u = LOAD 'data.tsv' USING PigStorage('\t')
+        AS(letra:CHARARRAY,
+        fecha:CHARARRAY,
+        numero:INT);
 
+y = ORDER u BY numero;
+z = FOREACH y GENERATE $2;
+z = LIMIT z 5;
+STORE z INTO 'output' USING PigStorage(',');
 
