@@ -13,11 +13,19 @@ Escriba el resultado a la carpeta `output` de directorio de trabajo.
 
         >>> Escriba su respuesta a partir de este punto <<<
 */
-u = LOAD 'data.tsv' USING PigStorage('\t')
-        AS(letra:CHARARRAY,
-        fecha:CHARARRAY,
-        numero:INT);
-y = GROUP u BY $0;
-z = FOREACH y GENERATE $0, COUNT($1);
-store z into 'output' USING PigStorage(',');
+DROP TABLE IF EXISTS data;
 
+CREATE TABLE data (
+letra STRING,
+fecha STRING,
+valor INT
+)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY  '\t';
+
+SELECT letra, COUNT(*) cantidad
+FROM data
+GROUP BY letra;
+
+INSERT OVERWRITE DIRECTORY 'output'
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
