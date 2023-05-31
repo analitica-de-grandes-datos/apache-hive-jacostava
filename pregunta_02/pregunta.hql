@@ -29,5 +29,5 @@ INSERT OVERWRITE DIRECTORY 'output'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
 SELECT *
 FROM data
-ORDER BY letter, value;
+ORDER BY letter, value, date_event;
 
