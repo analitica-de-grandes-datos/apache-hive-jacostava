@@ -16,16 +16,18 @@ Escriba el resultado a la carpeta `output` de directorio de trabajo.
 DROP TABLE IF EXISTS data;
 
 CREATE TABLE data (
-letra STRING,
-fecha STRING,
-valor INT
+letter STRING,
+date_event STRING,
+value INT
 )
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY  '\t';
 
-SELECT letra, COUNT(*) cantidad
+LOAD DATA INPATH 'data.tsv' OVERWRITE INTO TABLE data;
+
+SELECT letter letra, COUNT(*) cantidad
 FROM data
-GROUP BY letra;
+GROUP BY letter;
 
 INSERT OVERWRITE DIRECTORY 'output'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
